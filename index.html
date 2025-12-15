@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ارزیابی اولیه وام</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: sans-serif; direction: rtl; padding: 16px; }
+    input, select, textarea, button {
+      width: 100%; margin: 8px 0; padding: 8px;
+    }
+    .result { font-weight: bold; margin-top: 16px; }
+  </style>
+</head>
+<body>
+
+<h3>فرم ارزیابی اولیه تسهیلات</h3>
+
+<input id="age" type="number" placeholder="سن">
+
+<select id="license">
+  <option value="">وضعیت مجوز</option>
+  <option value="yes">دارم</option>
+  <option value="pending">در حال دریافت</option>
+  <option value="no">ندارم</option>
+</select>
+
+<input id="need" type="number" placeholder="مبلغ مورد نیاز (تومان)">
+<input id="capital" type="number" placeholder="سرمایه اولیه (تومان)">
+
+<button onclick="check()">بررسی شرایط</button>
+
+<div id="result" class="result"></div>
+
+<script>
+function check() {
+  const age = +document.getElementById("age").value;
+  const license = document.getElementById("license").value;
+  const need = +document.getElementById("need").value;
+  const capital = +document.getElementById("capital").value;
+
+  let ok =
+    age >= 23 && age <= 60 &&
+    license !== "no" &&
+    capital >= need * 0.3;
+
+  document.getElementById("result").innerText =
+    ok
+    ? "✅ شما واجد شرایط اولیه دریافت وام هستید"
+    : "❌ شرایط لازم را ندارید";
+
+  Telegram.WebApp.ready();
+}
+</script>
+
+</body>
+</html>
